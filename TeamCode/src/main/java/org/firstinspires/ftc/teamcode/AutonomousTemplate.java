@@ -6,6 +6,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import org.firstinspires.ftc.robotcore.external.ClassFactory;
 
 //Define as Autonomous
 @Disabled
@@ -17,6 +18,14 @@ AutonomousTemplate extends Team6340Controls {
     public void runOpMode() {
         // Initialize the hardware
         initializeHardware();
+        initVuforia();
+        initTfod();
+
+        if (ClassFactory.getInstance().canCreateTFObjectDetector()) {
+            initTfod();
+        } else {
+            telemetry.addData("Sorry!", "This device is not compatible with TFOD");
+        }
 
 
         // Wait for the game to start (driver presses PLAY)

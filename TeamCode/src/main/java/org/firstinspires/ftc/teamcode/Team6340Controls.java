@@ -12,7 +12,6 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 import com.sun.tools.javac.comp.Todo;
 
-
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
 import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
@@ -40,7 +39,18 @@ import static java.lang.Math.abs;
 public abstract class Team6340Controls extends LinearOpMode {
     //Initialize and instantiate vuforia variables
     OpenGLMatrix lastLocation = null;
-    //VuforiaLocalizer vuforia;
+    VuforiaLocalizer vuforia;
+    private static final String VUFORIA_KEY = "AZWzerv/////AAABmZeKo4MkD08MoSz5oHB/JU6N1BsUWpfHgQeAeVZemAypSUGVQhvAHo6+v7kJ3MITd8530MhwxRx7GjRtdCs1qjPmdKiJK66dv0yN4Zh4NvKBfP5p4TJjM+G0GoMVgVK0pItm2U56/SVqQH2AYtczQ+giw6zBe4eNhHPJCMY5C2t5Cs6IxxjZlMkRF85l8YAUlKGLipnoZ1T/mX8DNuThQA57qsIB2EN6pGWe8GI64hcPItQ0j7Oyjp82lEN13rYQYsS3Ur4a6//D6yhwa0rogXAysG68G+VgC1mNlj1CjX60qDI84ZN0b/A081xXqjeyFqZK8A/jO8y7BGz9ZuuZNxxXIon6xRNeKYudpfTD23+5";
+
+
+    /**
+     * {@link #tfod} is the variable we will use to store our instance of the Tensor Flow Object
+     * Detection engine.
+     */
+    TFObjectDetector tfod;
+    protected static final String TFOD_MODEL_ASSET = "RoverRuckus.tflite";
+    protected static final String LABEL_GOLD_MINERAL = "Gold Mineral";
+    protected static final String LABEL_SILVER_MINERAL = "Silver Mineral";
 
     //Initialize elapsed time object
     protected ElapsedTime runtime = new ElapsedTime();
@@ -130,18 +140,6 @@ public abstract class Team6340Controls extends LinearOpMode {
         //blueSensorColor = hardwareMap.get(ColorSensor.class, "BlueColorSensor");
 
 
-        //Initialize Vuforia extension
-        //TODO add RoverRuckus Vuforia Info
-       /* int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-       VuforiaLocalizer.Parameters parametersV = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
-       parametersV.vuforiaLicenseKey = "AZWzerv/////AAABmZeKo4MkD08MoSz5oHB/JU6N1BsUWpfHgQeAeVZemAypSUGVQhvAHo6+v7kJ3MITd8530MhwxRx7GjRtdCs1qjPmdKiJK66dv0yN4Zh4NvKBfP5p4TJjM+G0GoMVgVK0pItm2U56/SVqQH2AYtczQ+giw6zBe4eNhHPJCMY5C2t5Cs6IxxjZlMkRF85l8YAUlKGLipnoZ1T/mX8DNuThQA57qsIB2EN6pGWe8GI64hcPItQ0j7Oyjp82lEN13rYQYsS3Ur4a6//D6yhwa0rogXAysG68G+VgC1mNlj1CjX60qDI84ZN0b/A081xXqjeyFqZK8A/jO8y7BGz9ZuuZNxxXIon6xRNeKYudpfTD23+5";
-       parametersV.cameraDirection = VuforiaLocalizer.CameraDirection.BACK; //Set camera
-       vuforia = ClassFactory.createVuforiaLocalizer(parametersV);
-       Get the assets for Vuforia
-       relicTrackables = vuforia.loadTrackablesFromAsset("RelicVuMark");
-       relicTemplate = relicTrackables.get(0);
-       relicTemplate.setName("relicVuMarkTemplate"); // can help in debugging; otherwise not necessary
-        */
 
         //Initialize Gryo
         // Set up the parameters with which we will use our IMU. Note that integration
@@ -177,6 +175,42 @@ public abstract class Team6340Controls extends LinearOpMode {
         composeTelemetry();
         // Set the g
 
+    }
+
+    /**
+     * Initialize the Vuforia localization engine.
+     */
+
+    protected void initVuforia() {
+        /*
+         * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
+         */
+        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
+
+        parameters.vuforiaLicenseKey = VUFORIA_KEY;
+        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;  //set camera
+
+        //  Instantiate the Vuforia engine
+        vuforia = ClassFactory.getInstance().createVuforia(parameters);
+
+        // Loading trackables is not necessary for the Tensor Flow Object Detection engine.
+        /*
+       Get the assets for Vuforia
+       relicTrackables = vuforia.loadTrackablesFromAsset("RelicVuMark");
+       relicTemplate = relicTrackables.get(0);
+       relicTemplate.setName("relicVuMarkTemplate"); // can help in debugging; otherwise not necessary
+        */
+    }
+
+    /**
+     * Initialize the Tensor Flow Object Detection engine.
+     */
+    protected void initTfod() {
+        int tfodMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
+                "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
+        tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
+        tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_GOLD_MINERAL, LABEL_SILVER_MINERAL);
     }
 
     /**
