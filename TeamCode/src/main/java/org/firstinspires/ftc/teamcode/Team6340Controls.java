@@ -25,6 +25,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
+import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
+import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
+
 
 import java.util.Locale;
 
@@ -129,15 +132,16 @@ public abstract class Team6340Controls extends LinearOpMode {
 
         //Initialize Vuforia extension
         //TODO add RoverRuckus Vuforia Info
-       // int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        //VuforiaLocalizer.Parameters parametersV = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
-        //parametersV.vuforiaLicenseKey = "AZWzerv/////AAABmZeKo4MkD08MoSz5oHB/JU6N1BsUWpfHgQeAeVZemAypSUGVQhvAHo6+v7kJ3MITd8530MhwxRx7GjRtdCs1qjPmdKiJK66dv0yN4Zh4NvKBfP5p4TJjM+G0GoMVgVK0pItm2U56/SVqQH2AYtczQ+giw6zBe4eNhHPJCMY5C2t5Cs6IxxjZlMkRF85l8YAUlKGLipnoZ1T/mX8DNuThQA57qsIB2EN6pGWe8GI64hcPItQ0j7Oyjp82lEN13rYQYsS3Ur4a6//D6yhwa0rogXAysG68G+VgC1mNlj1CjX60qDI84ZN0b/A081xXqjeyFqZK8A/jO8y7BGz9ZuuZNxxXIon6xRNeKYudpfTD23+5";
-        //parametersV.cameraDirection = VuforiaLocalizer.CameraDirection.BACK; //Set camera
-       // vuforia = ClassFactory.createVuforiaLocalizer(parametersV);
-        //Get the assets for Vuforia
-        //relicTrackables = vuforia.loadTrackablesFromAsset("RelicVuMark");
-        //relicTemplate = relicTrackables.get(0);
-        //relicTemplate.setName("relicVuMarkTemplate"); // can help in debugging; otherwise not necessary
+       /* int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+       VuforiaLocalizer.Parameters parametersV = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
+       parametersV.vuforiaLicenseKey = "AZWzerv/////AAABmZeKo4MkD08MoSz5oHB/JU6N1BsUWpfHgQeAeVZemAypSUGVQhvAHo6+v7kJ3MITd8530MhwxRx7GjRtdCs1qjPmdKiJK66dv0yN4Zh4NvKBfP5p4TJjM+G0GoMVgVK0pItm2U56/SVqQH2AYtczQ+giw6zBe4eNhHPJCMY5C2t5Cs6IxxjZlMkRF85l8YAUlKGLipnoZ1T/mX8DNuThQA57qsIB2EN6pGWe8GI64hcPItQ0j7Oyjp82lEN13rYQYsS3Ur4a6//D6yhwa0rogXAysG68G+VgC1mNlj1CjX60qDI84ZN0b/A081xXqjeyFqZK8A/jO8y7BGz9ZuuZNxxXIon6xRNeKYudpfTD23+5";
+       parametersV.cameraDirection = VuforiaLocalizer.CameraDirection.BACK; //Set camera
+       vuforia = ClassFactory.createVuforiaLocalizer(parametersV);
+       Get the assets for Vuforia
+       relicTrackables = vuforia.loadTrackablesFromAsset("RelicVuMark");
+       relicTemplate = relicTrackables.get(0);
+       relicTemplate.setName("relicVuMarkTemplate"); // can help in debugging; otherwise not necessary
+        */
 
         //Initialize Gryo
         // Set up the parameters with which we will use our IMU. Note that integration
