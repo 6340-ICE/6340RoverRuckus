@@ -28,6 +28,7 @@ import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 
 
+import java.util.List;
 import java.util.Locale;
 
 import static java.lang.Math.abs;
@@ -51,6 +52,9 @@ public abstract class Team6340Controls extends LinearOpMode {
     protected static final String TFOD_MODEL_ASSET = "RoverRuckus.tflite";
     protected static final String LABEL_GOLD_MINERAL = "Gold Mineral";
     protected static final String LABEL_SILVER_MINERAL = "Silver Mineral";
+    protected static final String POSITION_LEFT = "Left";
+    protected static final String POSITION_CENTER = "Center";
+    protected static final String POSITION_RIGHT = "Right";
 
     //Initialize elapsed time object
     protected ElapsedTime runtime = new ElapsedTime();
@@ -93,7 +97,7 @@ public abstract class Team6340Controls extends LinearOpMode {
     static final double TURN_SPEED = 1;     // Nominal half speed for better accuracy.
 
     static final double HEADING_THRESHOLD = 2.5;      // As tight as we can make it with an integer gyro
-    static final double P_TURN_COEFF = .005;     // .02 Larger is more responsive, but also less stable
+    static final double P_TURN_COEFF = .010;     // .02 Larger is more responsive, but also less stable
     static final double P_DRIVE_COEFF = .010;     // .05 Larger is more responsive, but also less stable
 
     //Initialize Vuforia variables
@@ -188,7 +192,7 @@ public abstract class Team6340Controls extends LinearOpMode {
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
 
         parameters.vuforiaLicenseKey = VUFORIA_KEY;
-        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;  //set camera
+        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.FRONT;  //set camera
 
         //  Instantiate the Vuforia engine
         vuforia = ClassFactory.getInstance().createVuforia(parameters);
@@ -602,6 +606,53 @@ public abstract class Team6340Controls extends LinearOpMode {
 
     }
 
+    protected String getMineralPosition(){
+        if (opModeIsActive()) {
+            /** Activate Tensor Flow Object Detection. */
+            if (tfod != null) {
+                tfod.activate();
+            }
+
+            while (opModeIsActive()) {
+                if (tfod != null) {
+                    // getUpdatedRecognitions() will return null if no new information is available since
+                    // the last time that call was made.
+                    List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
+                    if (updatedRecognitions != null) {
+                        telemetry.addData("# Object Detected", updatedRecognitions.size());
+                        if (updatedRecognitions.size() == 3) {
+                            int goldMineralX = -1;
+                            int silverMineral1X = -1;
+                            int silverMineral2X = -1;
+                            for (Recognition recognition : updatedRecognitions) {
+                                if (recognition.getLabel().equals(LABEL_GOLD_MINERAL)) {
+                                    goldMineralX = (int) recognition.getLeft();
+                                } else if (silverMineral1X == -1) {
+                                    silverMineral1X = (int) recognition.getLeft();
+                                } else {
+                                    silverMineral2X = (int) recognition.getLeft();
+                                }
+                            }
+                            if (goldMineralX != -1 && silverMineral1X != -1 && silverMineral2X != -1) {
+                                if (goldMineralX < silverMineral1X && goldMineralX < silverMineral2X) {
+                                    telemetry.addData("Gold Mineral Position", "Left");
+                                    return POSITION_LEFT;
+                                } else if (goldMineralX > silverMineral1X && goldMineralX > silverMineral2X) {
+                                    telemetry.addData("Gold Mineral Position", "Right");
+                                    return POSITION_RIGHT;
+                                } else {
+                                    telemetry.addData("Gold Mineral Position", "Center");
+                                    return POSITION_CENTER;
+                                }
+                            }
+                        }
+                        telemetry.update();
+                    }
+                }
+            }
+        }
+        return null;
+    }
 
 
 
