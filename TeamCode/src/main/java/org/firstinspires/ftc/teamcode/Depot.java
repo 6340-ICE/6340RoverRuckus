@@ -26,11 +26,11 @@ public class Depot extends Team6340Controls {
         waitForStart();
 
         // Insert Autonomous Code Here
+        //TODO Try adding timeout Ex: getMineralPosition(15)
         String position = getMineralPosition();
         telemetry.addData("Position from Depot: ",position);
-        telemetry.update();
 
-        if (position.equals(POSITION_CENTER)) {                             //If the mineral position is Center
+        if (POSITION_CENTER.equals(position)) {                             //If the mineral position is Center
             lift(-.5, 16, 10);//Land
             gyroDrive(DRIVE_SPEED, 60, -5, 10);    //Move forward 43 inches
             trophy.setPosition(.7);                                         //drop trophy set servo .7/up
@@ -38,9 +38,8 @@ public class Depot extends Team6340Controls {
             gyroTurn(TURN_SPEED, 215, 5);                    //turn 320 degrees right
             gyroDrive(DRIVE_SPEED, 72, 215, 10);    //move forward 43 inches
             trophy.setPosition(1.0);                                         //set servo to .40/down
-        }
 
-        if (position.equals(POSITION_LEFT)) {                               //If the mineral position is Left
+        } else if (POSITION_LEFT.equals(position)) {                       //If the mineral position is Left
             lift(-.5, 16, 10);//Land
             gyroTurn(TURN_SPEED, 20, 5);                    //turn Left for 20 degrees
             gyroDrive(DRIVE_SPEED, 43, 20, 10);    //Move forward 43 inches
@@ -50,9 +49,8 @@ public class Depot extends Team6340Controls {
             gyroHold(TURN_SPEED, -50, 1);                      //stop for 1 sec
             gyroDrive(DRIVE_SPEED, -95, -50, 10);    //move backward 85 inches
            trophy.setPosition(1.0);
-        }
 
-        if (position.equals(POSITION_RIGHT)) {                              //If the mineral position is Right
+        } else if (POSITION_RIGHT.equals(position)) {                       //If the mineral position is Right
             lift(-.5, 16, 10);//Land
             gyroTurn(TURN_SPEED, -20, 5);                    //turn Right for 20 degrees
             gyroDrive(DRIVE_SPEED, 53, -20, 10);    //Move forward 53 inches
@@ -62,6 +60,9 @@ public class Depot extends Team6340Controls {
             gyroHold(TURN_SPEED, 50, 1);                      //stop for 1 sec
             gyroDrive(DRIVE_SPEED, -95, 50, 10);    //move backward 85 inches
             trophy.setPosition(1.0);
+        } else {
+            telemetry.addData("No position from TensorFlow", "Run default program");
+            //TODO add default code here
         }
 
     }

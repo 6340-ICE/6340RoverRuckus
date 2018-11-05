@@ -606,14 +606,36 @@ public abstract class Team6340Controls extends LinearOpMode {
 
     }
 
-    protected String getMineralPosition(){
+    /**
+     * Method to find the Gold Mineral position
+     * For details, see following method
+     * @see Team6340Controls#getMineralPosition(double)
+     *
+     */
+    protected String getMineralPosition() {
+        return getMineralPosition(60);
+    }
+
+    /**
+     * Method to find the Gold Mineral position with timeout option
+     * @param timeout - number of seconds to find the mineral position.
+     *                If TensorFlow is unable to find the mineral position by this number of seconds,
+     *                then this program will return null.
+     * @return String - returns the position of the gold mineral by the given timeout period or null if time runs out
+     *                - Will return Left, Right, Center or null
+     */
+    protected String getMineralPosition(double timeout) {
         if (opModeIsActive()) {
             /** Activate Tensor Flow Object Detection. */
             if (tfod != null) {
                 tfod.activate();
             }
 
-            while (opModeIsActive()) {
+            //reset the timeout time and start processing
+           runtime.reset();
+
+            //run until the given timeout period
+            while (opModeIsActive() && (runtime.seconds() < timeout)) {
                 if (tfod != null) {
                     // getUpdatedRecognitions() will return null if no new information is available since
                     // the last time that call was made.
