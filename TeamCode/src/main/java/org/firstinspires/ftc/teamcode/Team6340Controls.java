@@ -13,6 +13,7 @@ import com.qualcomm.robotcore.util.Range;
 import com.sun.tools.javac.comp.Todo;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
 import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -205,7 +206,26 @@ public abstract class Team6340Controls extends LinearOpMode {
        relicTemplate.setName("relicVuMarkTemplate"); // can help in debugging; otherwise not necessary
         */
     }
+    protected void initVuforiaWebcam() {
+        /*
+         * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
+         */
+        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
 
+        parameters.vuforiaLicenseKey = VUFORIA_KEY;
+        parameters.cameraName = hardwareMap.get(WebcamName.class, "Webcam 1");
+
+        //  Instantiate the Vuforia engine
+        vuforia = ClassFactory.getInstance().createVuforia(parameters);
+
+        // Loading trackables is not necessary for the Tensor Flow Object Detection engine.
+        /*
+       Get the assets for Vuforia
+       relicTrackables = vuforia.loadTrackablesFromAsset("RelicVuMark");
+       relicTemplate = relicTrackables.get(0);
+       relicTemplate.setName("relicVuMarkTemplate"); // can help in debugging; otherwise not necessary
+        */
+    }
     /**
      * Initialize the Tensor Flow Object Detection engine.
      */
