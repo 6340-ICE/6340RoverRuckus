@@ -294,15 +294,7 @@ public abstract class Team6340Controls extends LinearOpMode {
 
     }
 
-    /**
-     * Displays the red, green, and blue values on telemetry.
-     * <b>Note: </b> this method does not call telemetry.update()
-     */
-    protected void debugColorSensor(ColorSensor sensor) {
-        telemetry.addData("Red  ", blueSensorColor.red());
-        telemetry.addData("Green", blueSensorColor.green());
-        telemetry.addData("Blue ", blueSensorColor.blue());
-    }
+
 
     /**
      * Method to drive on a fixed compass bearing (angle), based on encoder counts.
