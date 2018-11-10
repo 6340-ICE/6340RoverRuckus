@@ -35,12 +35,12 @@ public class OppositieDepotCrater extends Team6340Controls {
             trophy.setPosition(.7);                                         //drop trophy set servo .7/up
             gyroHold(TURN_SPEED, 0, 1);                      //stop for 1 sec
             gyroDrive(DRIVE_SPEED, -10,0, 5 );
-            gyroTurn(TURN_SPEED, -120, 5);                    //turn 320 degrees right
-            gyroDrive(DRIVE_SPEED, -12, 0, 5);//Backup
-            gyroTurn(TURN_SPEED, 90, 5);//Turn Left 90 Degrees
-            gyroDrive(DRIVE_SPEED, 12, 90, 5);//Drive Forword
+            //gyroTurn(TURN_SPEED, -120, 5);                    //turn 320 degrees right
+            //gyroDrive(DRIVE_SPEED, -12, 0, 5);//Backup
+            gyroTurn(TURN_SPEED, 85, 5);//Turn Left 90 Degrees
+            gyroDrive(DRIVE_SPEED, 15, 85, 5);//Drive Forward
             gyroTurn(TURN_SPEED, 130, 5);//Turn Left 45 Degrees
-            gyroDrive(DRIVE_SPEED, 50, 130, 10);//Drive Forward
+            gyroDrive(DRIVE_SPEED, 55, 130, 10);//Drive Forward
             trophy.setPosition(1.0);                                         //set servo to .40/down
 
         } else if (POSITION_LEFT.equals(position)) {                       //If the mineral position is Left
