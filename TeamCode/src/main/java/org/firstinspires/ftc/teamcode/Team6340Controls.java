@@ -85,17 +85,17 @@ public abstract class Team6340Controls extends LinearOpMode {
     ColorSensor blueSensorColor;
 
     //Initlize encoder variables
-    protected double COUNTS_PER_MOTOR_REV = 288;    // Rev Hex Motor 288
+    protected double COUNTS_PER_MOTOR_REV = 2240;    // Rev Hex Motor 288
     protected double COUNTS_PER_MOTOR = 280;    // andyMark 40
-    protected double DRIVE_GEAR_REDUCTION = 1;     // This is < 1.0 if geared UP
-    protected double WHEEL_DIAMETER_INCHES = 3.5;     // For figuring circumference
+    protected double DRIVE_GEAR_REDUCTION = .5;     // This is < 1.0 if geared UP
+    protected double WHEEL_DIAMETER_INCHES = 4.0;     // For figuring circumference
     protected double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * 3.1415);
    // protected double COUNTS_PER_INCH_LIFT = (COUNTS_PER_MOTOR );
 
     // These constants define the desired driving/control characteristics
     // The can/should be tweaked to suite the specific robot drive train.
-    static final double DRIVE_SPEED = 1;     // Nominal speed for better accuracy.
-    static final double TURN_SPEED = 1;     // Nominal half speed for better accuracy.
+    static final double DRIVE_SPEED = .5;     // Nominal speed for better accuracy.
+    static final double TURN_SPEED = .5;     // Nominal half speed for better accuracy.
 
     static final double HEADING_THRESHOLD = 2.5;      // As tight as we can make it with an integer gyro
     static final double P_TURN_COEFF = .010;     // .02 Larger is more responsive, but also less stable

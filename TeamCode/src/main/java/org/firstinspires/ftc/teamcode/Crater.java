@@ -25,7 +25,7 @@ Crater extends Team6340Controls {
         waitForStart();
 
         // Insert Autonomous Code Here
-        lift(-.5,16,10);                       //Land
+        lift(-.5,4,5);                       //Land
         gyroDrive(DRIVE_SPEED, 5, 0, 2);        //move forward 1 inch
         gyroTurn(TURN_SPEED, 35, 5);                       // Turn 45 degrees left
         gyroDrive(DRIVE_SPEED, 47, 35, 10);      // Move Forward 42"
