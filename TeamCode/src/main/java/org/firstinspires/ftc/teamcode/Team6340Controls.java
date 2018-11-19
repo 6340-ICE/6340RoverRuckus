@@ -75,10 +75,12 @@ public abstract class Team6340Controls extends LinearOpMode {
     protected DcMotorEx leftMotor;
     protected DcMotorEx rightMotor;
     protected DcMotorEx liftMotor;
+    protected DcMotorEx bucketMotor;
 
 
     //Instantiate servos
     protected Servo trophy;
+    protected Servo intake;
 
 
     //Instantiate sensors
@@ -119,27 +121,32 @@ public abstract class Team6340Controls extends LinearOpMode {
         leftMotor = (DcMotorEx) hardwareMap.get(DcMotor.class, "leftMotor");
         rightMotor = (DcMotorEx) hardwareMap.get(DcMotor.class, "rightMotor");
         liftMotor = (DcMotorEx) hardwareMap.get(DcMotor.class, "liftMotor");
+        bucketMotor = (DcMotorEx) hardwareMap.get(DcMotor.class, "bucketMotor");
 
 
         //Reset the encoders on the chassis to 0
         leftMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         rightMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         liftMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        bucketMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 
         //Set the motor modes
         rightMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         leftMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         liftMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        bucketMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
 
         //Reverse the right motors so all motors move forward when set to a positive speed.
         leftMotor.setDirection(DcMotorEx.Direction.REVERSE);
         rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        bucketMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
         //Initialize the servos
        trophy = hardwareMap.get(Servo.class, "trophy");
+       intake = hardwareMap.get(Servo.class, "intake");
 
         //Initialize sensors
         //blueSensorColor = hardwareMap.get(ColorSensor.class, "BlueColorSensor");
@@ -383,6 +390,8 @@ public abstract class Team6340Controls extends LinearOpMode {
             rightDrive(0);
         }
     }
+
+    //Controls lift
     public void lift(double speed,
                              double liftInches,
                              double timeout) {
@@ -428,18 +437,64 @@ public abstract class Team6340Controls extends LinearOpMode {
             //  sleep(250);   // optional pause after each move
         }
     }
-    /**
-     * Method to drive on a fixed compass bearing (angle), based on encoder counts.
-     * Move will stop if either of these conditions occur:
-     * 1) Move gets to the desired position
-     * 2) Driver stops the opmode running.
-     *
-     * @param speed    Target speed for forward motion.  Should allow for _/- variance for adjusting heading
-     * @param distance Distance (in inches) to move from current position.  Negative distance means move backwards.
-     * @param angle    Absolute Angle (in Degrees) relative to last gyro reset.
-     *                 0 = fwd. +ve is CCW from fwd. -ve is CW from forward.
-     *                 If a relative angle is required, add/subtract from current heading.
-     */
+
+    public void bucket(double speed,
+                     double bucketAngle,
+                     double timeout) {
+        int newBucketTarget;
+
+        // Ensure that the opmode is still active
+        if (opModeIsActive()) {
+
+            // Determine new target position, and pass to motor controller
+            newBucketTarget = (int) (bucketAngle * COUNTS_PER_MOTOR / 360);
+            bucketMotor.setTargetPosition(newBucketTarget);
+
+            // Turn On RUN_TO_POSITION
+            bucketMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            // reset the timeout time and start motion.
+            runtime.reset();
+            bucketMotor.setPower(Math.abs(speed));
+
+            // keep looping while we are still active, and there is time left, and both motors are running.
+            // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
+            // its target position, the motion will stop.  This is "safer" in the event that the robot will
+            // always end the motion as soon as possible.
+            // However, if you require that BOTH motors have finished their moves before the robot continues
+            // onto the next step, use (isBusy() || isBusy()) in the loop test.
+            while (opModeIsActive() &&
+                    (runtime.seconds() < timeout) &&
+                    (bucketMotor.isBusy())) {
+
+                // Display it for the driver.
+                telemetry.addData("Path1", "Running", newBucketTarget);
+                telemetry.addData("Path2", "Running",
+                        bucketMotor.getCurrentPosition());
+                telemetry.update();
+            }
+        }
+            // Stop all motion;
+            bucketMotor.setPower(0);
+
+            // Turn off RUN_TO_POSITION
+            bucketMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+            //  sleep(250);   // optional pause after each move
+        }
+
+        /**
+         * Method to drive on a fixed compass bearing (angle), based on encoder counts.
+         * Move will stop if either of these conditions occur:
+         * 1) Move gets to the desired position
+         * 2) Driver stops the opmode running.
+         *
+         * @param speed    Target speed for forward motion.  Should allow for _/- variance for adjusting heading
+         * @param distance Distance (in inches) to move from current position.  Negative distance means move backwards.
+         * @param angle    Absolute Angle (in Degrees) relative to last gyro reset.
+         *                 0 = fwd. +ve is CCW from fwd. -ve is CW from forward.
+         *                 If a relative angle is required, add/subtract from current heading.
+         */
     protected void gyroDrive(double speed, double distance, double angle) {
         gyroDrive(speed, distance, angle, 60);
     }
