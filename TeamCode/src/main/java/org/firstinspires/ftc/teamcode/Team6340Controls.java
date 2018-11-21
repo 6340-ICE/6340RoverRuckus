@@ -138,6 +138,7 @@ public abstract class Team6340Controls extends LinearOpMode {
 
         //Reverse the right motors so all motors move forward when set to a positive speed.
         leftMotor.setDirection(DcMotorEx.Direction.REVERSE);
+        liftMotor.setDirection(DcMotorEx.Direction.REVERSE);
         rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);

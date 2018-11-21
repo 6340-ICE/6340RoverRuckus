@@ -68,7 +68,7 @@ public class Teleop6340 extends Team6340Controls {
 
             //Lower lift and start intake
             if (gamepad2.left_bumper) {
-                bucket(-.5,-90,5);
+                bucket(-.5,-70,5);
                 lift(-1, -10, 5);
                 intake.setPosition(.9);
             }
