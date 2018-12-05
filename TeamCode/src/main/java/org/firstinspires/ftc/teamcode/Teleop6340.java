@@ -56,7 +56,7 @@ public class Teleop6340 extends Team6340Controls {
 
             //trophy pad down press x/blue
             if (gamepad2.x) {
-                trophy.setPosition(1.0);            //servo down
+                trophy.setPosition(0.0);            //servo down
             }
 
             //Lift and dump minerals that have been collected. Stop intake
