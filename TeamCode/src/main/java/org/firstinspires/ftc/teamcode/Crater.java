@@ -43,7 +43,9 @@ Crater extends Team6340Controls {
 //        trophy.setPosition(1.0);
         if (POSITION_CENTER.equals(position)) {                             //If the mineral position is Center
             lift(-.5, 16, 5);//Land
-            gyroDrive(DRIVE_SPEED, 32, 0, 10);    //Move forward 32 inches
+            gyroDrive(DRIVE_SPEED, 4, 0, 10);    //Move forward 4 inches
+            lift(.5, -16, 5);               //land
+            gyroDrive(DRIVE_SPEED, 28, 0, 10);    //Move forward 28 inches
             gyroDrive(TURN_SPEED, -16, 0, 5);                    //turn 320 degrees right
             gyroDrive(DRIVE_SPEED, 67, -120, 10);    //move forward 43 inches
             trophy.setPosition(6.0);                                         //set servo to .40/down
@@ -51,6 +53,7 @@ Crater extends Team6340Controls {
         } else if (POSITION_LEFT.equals(position)) {                       //If the mineral position is Left
             lift(-.5, 16, 5);//Land
             gyroDrive(DRIVE_SPEED, 4, 0, 4);         //drive forward 4 inches
+            lift(.5, -16, 5);
             gyroTurn(TURN_SPEED, 20, 5);                    //turn Left for 20 degrees
             gyroDrive(DRIVE_SPEED, 58, 20, 10);    //Move forward 58 inches
             gyroTurn(TURN_SPEED, -40, 5);                     //turn right -40 degrees
@@ -63,6 +66,7 @@ Crater extends Team6340Controls {
         } else if (POSITION_RIGHT.equals(position)) {                       //If the mineral position is Right
             lift(-.5, 16, 5);//Land
             gyroDrive(DRIVE_SPEED, 4, 0, 4);         //drive forward 4 inches
+            lift(.5, -16, 5);
             gyroTurn(TURN_SPEED, -20, 5);                    //turn Right for 20 degrees
             gyroDrive(DRIVE_SPEED, 53, -20, 10);    //Move forward 53 inches
             gyroTurn(TURN_SPEED, 45, 5);                     //turn left to 45 degrees
@@ -75,7 +79,9 @@ Crater extends Team6340Controls {
             telemetry.addData("No position from TensorFlow", "Run default program");
             //If we dont have position, assume LEFT position
             lift(-.5, 12, 5);//Land
-            gyroDrive(DRIVE_SPEED, 32, 0, 10);    //Move forward 32 inches
+            gyroDrive(DRIVE_SPEED, 4, 0, 10);    //Move forward 4 inches
+            lift(.5, -16, 5);
+            gyroDrive(DRIVE_SPEED, 28, 0, 10);    //Move forward 28 inches
             gyroDrive(TURN_SPEED, -16, 0, 5);                    //turn 320 degrees right
             gyroTurn(TURN_SPEED, 80, 10);
             gyroDrive(DRIVE_SPEED, 42, 75, 10);
