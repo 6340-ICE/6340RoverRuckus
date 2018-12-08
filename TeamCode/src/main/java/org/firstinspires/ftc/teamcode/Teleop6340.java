@@ -61,8 +61,6 @@ public class Teleop6340 extends Team6340Controls {
 
             //Lift and dump minerals that have been collected. Stop intake
             if (gamepad2.right_bumper) {
-                lift(1, 10, 5);
-                bucket(.5,-150,5);
                 intake.setPosition(.5);
             }
 
@@ -74,18 +72,14 @@ public class Teleop6340 extends Team6340Controls {
             }
 
             if (gamepad2.b){
-                intake.setPosition(.95);
-            }
-
-            if (gamepad2.x){
-                intake.setPosition(.1);
+                intake.setPosition(.95);   //Out
             }
 
             if (gamepad2.a){
                 intake.setPosition(.5);
             }
 
-            bucketMotor.setPower((gamepad2.left_stick_y)*.7);
+            bucketMotor.setPower(gamepad2.left_stick_y);
             //Stop everything
             if (gamepad2.y||gamepad1.y) {
                 liftMotor.setPower(0);
