@@ -25,6 +25,6 @@ Land extends Team6340Controls {
         waitForStart();
 
         // Insert Autonomous Code Here
-        lift(-.5,16,10);//Land
+        lift(-.5,7,10);//Land
    }
 }
