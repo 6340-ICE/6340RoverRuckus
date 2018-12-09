@@ -5,7 +5,6 @@ package org.firstinspires.ftc.teamcode;
 //Import FTC modules
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 //Define as Autonomous
 //@Disabled
@@ -17,7 +16,8 @@ Crater extends Team6340Controls {
     public void runOpMode() {
         // Initialize the hardware
         initializeHardware();
-
+        initVuforia();
+        initTfod();
 
         // Wait for the game to start (driver presses PLAY)
         telemetry.addData("Status", "Waiting for Start.");
@@ -25,15 +25,67 @@ Crater extends Team6340Controls {
         waitForStart();
 
         // Insert Autonomous Code Here
-        lift(-.5,4,5);                       //Land
-        gyroDrive(DRIVE_SPEED, 5, 0, 2);        //move forward 1 inch
-        gyroTurn(TURN_SPEED, 35, 5);                       // Turn 45 degrees left
-        gyroDrive(DRIVE_SPEED, 47, 35, 10);      // Move Forward 42"
-        gyroTurn(TURN_SPEED, 115, 10);                   // Turn Left 90 degrees (Heading 130)
-        gyroDrive(DRIVE_SPEED,  58, 115, 10); // Move forward 66"
-        trophy.setPosition(.7);                                    // Deliver Trophy
-        gyroHold(DRIVE_SPEED, 120, 1);
-        gyroDrive(DRIVE_SPEED, -80 ,120,20);     //move forward 108 inches
-        gyroHold(DRIVE_SPEED, 120, 5);
-        trophy.setPosition(1.0);
+        //adding timeout Ex: getMineralPosition(15)
+        String position = getMineralPosition(5); //wait 10 sec if you don't get the mineral position run default case
+        telemetry.addData("Position from Depot: ",position);
+
+
+        if (POSITION_CENTER.equals(position)) {                             //If the mineral position is Center
+            lift(-.5, 6.5, 5);//Land
+            gyroDrive(DRIVE_SPEED, 32, 0, 10);   //Move forward 32 inches
+            gyroDrive(DRIVE_SPEED, -15, 0, 5);                    //move back 15 inches
+            gyroTurn(TURN_SPEED, 90, 10);
+            gyroDrive(DRIVE_SPEED, 40, 85, 10);    //move forward 40 inches
+            gyroTurn(TURN_SPEED, 120, 10);                  //turn to face depot
+            gyroDrive(DRIVE_SPEED, 60, 125, 10);    //drive to depot
+            trophy.setPosition(.2);                                         //drop trophy
+            gyroHold(TURN_SPEED, 125, 1);                   //wait a sec.
+            gyroDrive(DRIVE_SPEED, -95, 145,10);    //drive backwards to crater
+            trophy.setPosition(0);
+
+        } else if (POSITION_LEFT.equals(position)) {                       //If the mineral position is Left
+            lift(-.5, 7, 5);//Land
+            gyroDrive(DRIVE_SPEED, 4, 0, 5);
+            gyroTurn(TURN_SPEED, 20, 10);
+            gyroDrive(DRIVE_SPEED, 28,20, 10);   //Move forward 32 inches
+            gyroDrive(DRIVE_SPEED, -14, 20, 5);                    //move back 16 inches
+            gyroTurn(TURN_SPEED, 90, 10);
+            gyroDrive(DRIVE_SPEED, 40, 85, 10);    //move forward 40 inches
+            gyroTurn(TURN_SPEED, 120, 10);                  //turn to face depot
+            gyroDrive(DRIVE_SPEED, 60, 125, 10);    //drive to depot
+            trophy.setPosition(.2);                                         //drop trophy
+            gyroHold(TURN_SPEED, 125, 1);                   //wait a sec.
+            gyroDrive(DRIVE_SPEED, -95, 145,10);    //drive backwards to crater
+            trophy.setPosition(0);
+
+        } else if (POSITION_RIGHT.equals(position)) {                       //If the mineral position is Right
+            lift(-.5, 7, 5);//Land
+            gyroDrive(DRIVE_SPEED, 4, 0, 5);
+            gyroTurn(TURN_SPEED, 340, 10);
+            gyroDrive(DRIVE_SPEED, 28,340, 10);   //Move forward 32 inches
+            gyroDrive(DRIVE_SPEED, -15, 340, 5);                    //move back 16 inches
+            gyroTurn(TURN_SPEED, 85, 10);
+            gyroDrive(DRIVE_SPEED, 50, 80, 10);    //move forward 40 inches
+            gyroTurn(TURN_SPEED, 120, 10);                  //turn to face depot
+            gyroDrive(DRIVE_SPEED, 60, 125, 10);    //drive to depot
+            trophy.setPosition(.2);                                         //drop trophy
+            gyroHold(TURN_SPEED, 125, 1);                   //wait a sec.
+            gyroDrive(DRIVE_SPEED, -100, 145,10);    //drive backwards to crater
+            trophy.setPosition(0);
+
+        } else {                                                               //default case
+            lift(-.5, 7, 5);//Land
+            gyroDrive(DRIVE_SPEED, 4, 0, 5);
+            gyroTurn(TURN_SPEED, 20, 10);
+            gyroDrive(DRIVE_SPEED, 28,20, 10);   //Move forward 32 inches
+            gyroDrive(DRIVE_SPEED, -14, 20, 5);                    //move back 16 inches
+            gyroTurn(TURN_SPEED, 90, 10);
+            gyroDrive(DRIVE_SPEED, 40, 90, 10);    //move forward 40 inches
+            gyroTurn(TURN_SPEED, 120, 10);                  //turn to face depot
+            gyroDrive(DRIVE_SPEED, 60, 125, 10);    //drive to depot
+            trophy.setPosition(.2);                                         //drop trophy
+            gyroHold(TURN_SPEED, 125, 1);                   //wait a sec.
+            gyroDrive(DRIVE_SPEED, -95, 145,10);    //drive backwards to crater
+            trophy.setPosition(0);
+        }
     }}
