@@ -31,7 +31,7 @@ Crater extends Team6340Controls {
 
 
         if (POSITION_CENTER.equals(position)) {                             //If the mineral position is Center
-            lift(-.5, 6.5, 5);//Land
+            lift(-.5, 17.5, 5);//Land
             gyroDrive(DRIVE_SPEED, 32, 0, 10);   //Move forward 32 inches
             gyroDrive(DRIVE_SPEED, -15, 0, 5);                    //move back 15 inches
             gyroTurn(TURN_SPEED, 90, 10);
@@ -44,7 +44,7 @@ Crater extends Team6340Controls {
             trophy.setPosition(0);
 
         } else if (POSITION_LEFT.equals(position)) {                       //If the mineral position is Left
-            lift(-.5, 7, 5);//Land
+            lift(-.5, 17.5, 5);//Land
             gyroDrive(DRIVE_SPEED, 4, 0, 5);
             gyroTurn(TURN_SPEED, 20, 10);
             gyroDrive(DRIVE_SPEED, 28,20, 10);   //Move forward 32 inches
@@ -59,7 +59,7 @@ Crater extends Team6340Controls {
             trophy.setPosition(0);
 
         } else if (POSITION_RIGHT.equals(position)) {                       //If the mineral position is Right
-            lift(-.5, 7, 5);//Land
+            lift(-.5, 17.5, 5);//Land
             gyroDrive(DRIVE_SPEED, 4, 0, 5);
             gyroTurn(TURN_SPEED, 340, 10);
             gyroDrive(DRIVE_SPEED, 28,340, 10);   //Move forward 32 inches
@@ -74,7 +74,7 @@ Crater extends Team6340Controls {
             trophy.setPosition(0);
 
         } else {                                                               //default case
-            lift(-.5, 7, 5);//Land
+            lift(-.5, 17.5, 5);//Land
             gyroDrive(DRIVE_SPEED, 4, 0, 5);
             gyroTurn(TURN_SPEED, 20, 10);
             gyroDrive(DRIVE_SPEED, 28,20, 10);   //Move forward 32 inches

@@ -30,7 +30,7 @@ public class Depot extends Team6340Controls {
         telemetry.addData("Position from Depot: ",position);
 
         if (POSITION_CENTER.equals(position)) {                             //If the mineral position is Center
-            lift(-.5, 7, 5);//Land
+            lift(-.5, 17.5, 5);//Land
             gyroDrive(DRIVE_SPEED, 64, 0, 10);    //Move forward 64 inches
             trophy.setPosition(.2);                                         //drop trophy set servo .2/up
             gyroHold(TURN_SPEED, 0, 1);                      //stop for 1 sec
@@ -40,7 +40,7 @@ public class Depot extends Team6340Controls {
             trophy.setPosition(0);                                         //set servo to 0.0/down
 
         } else if (POSITION_LEFT.equals(position)) {                       //If the mineral position is Left
-            lift(-.5, 7, 5);                          //Land
+            lift(-.5, 17.5, 5);                          //Land
             gyroDrive(DRIVE_SPEED, 4, 0, 4);          //Drive forward 4 inches
             gyroTurn(TURN_SPEED, 20, 5);                      //Turn towards mineral
             gyroDrive(DRIVE_SPEED, 58, 20, 10);      //knock over mineral
@@ -56,7 +56,7 @@ public class Depot extends Team6340Controls {
 
 
         } else if (POSITION_RIGHT.equals(position)) {                       //If the mineral position is Right
-            lift(-.5, 7, 5);//Land
+            lift(-.5, 17.5, 5);//Land
             gyroDrive(DRIVE_SPEED, 4, 0, 4);         //drive forward 4 inches
             gyroTurn(TURN_SPEED, -20, 5);                    //turn Right for 20 degrees
             gyroDrive(DRIVE_SPEED, 53, -20, 10);    //Move forward 53 inches
@@ -69,7 +69,7 @@ public class Depot extends Team6340Controls {
         } else {                                                               //default case
             telemetry.addData("No position from TensorFlow", "Run default program");
             //If we don't have position, assume LEFT position
-            lift(-.5, 7, 5);                          //Land
+            lift(-.5, 17.5, 5);                          //Land
             gyroDrive(DRIVE_SPEED, 4, 0, 4);          //Drive forward 4 inches
             gyroTurn(TURN_SPEED, 20, 5);                      //Turn towards mineral
             gyroDrive(DRIVE_SPEED, 58, 20, 10);      //knock over mineral
