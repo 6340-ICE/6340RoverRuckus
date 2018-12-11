@@ -38,10 +38,10 @@ Crater extends Team6340Controls {
             gyroDrive(DRIVE_SPEED, 40, 85, 10);    //move forward 40 inches
             gyroTurn(TURN_SPEED, 120, 10);                  //turn to face depot
             gyroDrive(DRIVE_SPEED, 60, 125, 10);    //drive to depot
-            trophy.setPosition(.2);                                         //drop trophy
+            trophy.setPosition(.4);                                         //drop trophy
             gyroHold(TURN_SPEED, 125, 1);                   //wait a sec.
             gyroDrive(DRIVE_SPEED, -95, 145,10);    //drive backwards to crater
-            trophy.setPosition(0);
+            trophy.setPosition(.15);
 
         } else if (POSITION_LEFT.equals(position)) {                       //If the mineral position is Left
             lift(-.5, 17.5, 5);//Land
