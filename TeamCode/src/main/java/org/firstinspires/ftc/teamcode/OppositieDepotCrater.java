@@ -69,7 +69,8 @@ public class OppositieDepotCrater extends Team6340Controls {
             gyroDrive(DRIVE_SPEED, 20, 5);//Drive Forword
             gyroTurn(TURN_SPEED, 130, 5);//Turn Left 45 Degrees
             gyroDrive(DRIVE_SPEED, 50, 130, 10);//Drive Forward
-            trophy.setPosition(.15)
+            trophy.setPosition(.15);
+
 
         } else {                                                               //default case
             telemetry.addData("No position from TensorFlow", "Run default program");
@@ -80,9 +81,11 @@ public class OppositieDepotCrater extends Team6340Controls {
             gyroDrive(DRIVE_SPEED, 58, 20, 10);    //Move forward 58 inches
             gyroTurn(TURN_SPEED, -40, 5);                     //turn right -40 degrees
             gyroDrive(DRIVE_SPEED, 20, -40, 10);    //Move forward 20 inches
-            trophy.setPosition(.7);                                         //drop trophy set servo .7/up
+            trophy.setPosition(.4);                                         //drop trophy set servo .7/up
             gyroHold(TURN_SPEED, -50, 1);                      //stop for 1 sec
             gyroDrive(DRIVE_SPEED, -90, -50, 10);    //move backward 90 inches
+            trophy.setPosition(.15);
+
         }
 
     }
