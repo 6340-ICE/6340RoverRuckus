@@ -72,7 +72,8 @@ public abstract class Team6340Controls extends LinearOpMode {
     protected DcMotorEx leftMotor;
     protected DcMotorEx rightMotor;
     protected DcMotorEx liftMotor;
-    protected DcMotorEx bucketMotor;
+    //protected DcMotorEx bucketMotor;
+    protected DcMotorEx armRotationMotor;
 
 
     //Instantiate servos
@@ -118,20 +119,22 @@ public abstract class Team6340Controls extends LinearOpMode {
         leftMotor = (DcMotorEx) hardwareMap.get(DcMotor.class, "leftMotor");
         rightMotor = (DcMotorEx) hardwareMap.get(DcMotor.class, "rightMotor");
         liftMotor = (DcMotorEx) hardwareMap.get(DcMotor.class, "liftMotor");
-        bucketMotor = (DcMotorEx) hardwareMap.get(DcMotor.class, "bucketMotor");
-
+      //  bucketMotor = (DcMotorEx) hardwareMap.get(DcMotor.class, "bucketMotor");
+        armRotationMotor = (DcMotorEx) hardwareMap.get(DcMotor.class, "armRotationMotor");
 
         //Reset the encoders on the chassis to 0
         leftMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         rightMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         liftMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        bucketMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        //bucketMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        armRotationMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 
         //Set the motor modes
         rightMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         leftMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         liftMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        bucketMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        //bucketMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        armRotationMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
 
         //Reverse the right motors so all motors move forward when set to a positive speed.
         leftMotor.setDirection(DcMotorEx.Direction.REVERSE);
@@ -139,7 +142,8 @@ public abstract class Team6340Controls extends LinearOpMode {
         rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        bucketMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //bucketMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        armRotationMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
         //Initialize the servos
@@ -436,24 +440,69 @@ public abstract class Team6340Controls extends LinearOpMode {
         }
     }
 
-    public void bucket(double speed,
-                     double bucketAngle,
+//    public void bucket(double speed,
+//                     double bucketAngle,
+//                     double timeout) {
+//        int newBucketTarget;
+//
+//        // Ensure that the opmode is still active
+//        if (opModeIsActive()) {
+//
+//            // Determine new target position, and pass to motor controller
+//            newBucketTarget = (int) (bucketAngle * COUNTS_PER_MOTOR / 360);
+//            bucketMotor.setTargetPosition(newBucketTarget);
+//
+//            // Turn On RUN_TO_POSITION
+//            bucketMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//
+//            // reset the timeout time and start motion.
+//            runtime.reset();
+//            bucketMotor.setPower(Math.abs(speed));
+//
+//            // keep looping while we are still active, and there is time left, and both motors are running.
+//            // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
+//            // its target position, the motion will stop.  This is "safer" in the event that the robot will
+//            // always end the motion as soon as possible.
+//            // However, if you require that BOTH motors have finished their moves before the robot continues
+//            // onto the next step, use (isBusy() || isBusy()) in the loop test.
+//            while (opModeIsActive() &&
+//                    (runtime.seconds() < timeout) &&
+//                    (bucketMotor.isBusy())) {
+//
+//                // Display it for the driver.
+//                telemetry.addData("Path1", "Running", newBucketTarget);
+//                telemetry.addData("Path2", "Running",
+//                        bucketMotor.getCurrentPosition());
+//                telemetry.update();
+//            }
+//        }
+//            // Stop all motion;
+//            bucketMotor.setPower(0);
+//
+//            // Turn off RUN_TO_POSITION
+//            bucketMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//
+//            //  sleep(250);   // optional pause after each move
+//        }
+        //armRotation
+    public void armRotate(double speed,
+                     double rotationAngle,
                      double timeout) {
-        int newBucketTarget;
+        int newAngleTarget;
 
         // Ensure that the opmode is still active
         if (opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
-            newBucketTarget = (int) (bucketAngle * COUNTS_PER_MOTOR / 360);
-            bucketMotor.setTargetPosition(newBucketTarget);
+            newAngleTarget = armRotationMotor.getCurrentPosition() + (int)(rotationAngle * COUNTS_PER_MOTOR);
+            armRotationMotor.setTargetPosition(newAngleTarget);
 
             // Turn On RUN_TO_POSITION
-            bucketMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            armRotationMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
             // reset the timeout time and start motion.
             runtime.reset();
-            bucketMotor.setPower(Math.abs(speed));
+            armRotationMotor.setPower(Math.abs(speed));
 
             // keep looping while we are still active, and there is time left, and both motors are running.
             // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
@@ -463,25 +512,27 @@ public abstract class Team6340Controls extends LinearOpMode {
             // onto the next step, use (isBusy() || isBusy()) in the loop test.
             while (opModeIsActive() &&
                     (runtime.seconds() < timeout) &&
-                    (bucketMotor.isBusy())) {
+                    (armRotationMotor.isBusy())) {
 
                 // Display it for the driver.
-                telemetry.addData("Path1", "Running", newBucketTarget);
-                telemetry.addData("Path2", "Running",
-                        bucketMotor.getCurrentPosition());
+                telemetry.addData("Arm1",  "Running", newAngleTarget);
+                telemetry.addData("Arm2",  "Running",
+                        armRotationMotor.getCurrentPosition());
                 telemetry.update();
             }
-        }
+
             // Stop all motion;
-            bucketMotor.setPower(0);
+            armRotationMotor.setPower(0);
 
             // Turn off RUN_TO_POSITION
-            bucketMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            armRotationMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
             //  sleep(250);   // optional pause after each move
         }
+    }
 
-        /**
+
+    /**
          * Method to drive on a fixed compass bearing (angle), based on encoder counts.
          * Move will stop if either of these conditions occur:
          * 1) Move gets to the desired position

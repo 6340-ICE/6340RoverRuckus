@@ -65,7 +65,7 @@ public class Teleop6340 extends Team6340Controls {
 
             //Lower lift and start intake
             if (gamepad2.left_bumper) {
-                bucket(-.5,-70,5);
+                //bucket(-.5,-70,5);
                 lift(-1, -10, 5);
                 intake.setPosition(.9);
             }
@@ -75,17 +75,18 @@ public class Teleop6340 extends Team6340Controls {
             }
 
             if (gamepad2.a){
-                intake.setPosition(.5);
+                //intake.setPosition(.5);
+                armRotate(.1, 5, 5);
             }
 
-            bucketMotor.setPower(gamepad2.left_stick_y);
+            //bucketMotor.setPower(gamepad2.left_stick_y);
             //Stop everything
             if (gamepad2.y||gamepad1.y) {
                 liftMotor.setPower(0);
                 rightMotor.setPower(0);
                 leftMotor.setPower(0);
                 intake.setPosition(.5);
-                bucketMotor.setPower(0);
+                //bucketMotor.setPower(0);
             }
 
 
