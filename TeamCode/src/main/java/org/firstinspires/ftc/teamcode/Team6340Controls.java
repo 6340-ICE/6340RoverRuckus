@@ -85,9 +85,9 @@ public abstract class Team6340Controls extends LinearOpMode {
     ColorSensor blueSensorColor;
 
     //Initlize encoder variables
-    protected double COUNTS_PER_MOTOR_REV = 2240;    // Rev Hex Motor 288
+    protected double COUNTS_PER_MOTOR_REV = 1120;    // Rev Hex Motor 288
     protected double COUNTS_PER_MOTOR = 280;    // andyMark 40
-    protected double DRIVE_GEAR_REDUCTION = .5;     // This is < 1.0 if geared UP
+    protected double DRIVE_GEAR_REDUCTION = 1;     // This is < 1.0 if geared UP
     protected double WHEEL_DIAMETER_INCHES = 4.0;     // For figuring circumference
     protected double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * 3.1415);
    // protected double COUNTS_PER_INCH_LIFT = (COUNTS_PER_MOTOR );
