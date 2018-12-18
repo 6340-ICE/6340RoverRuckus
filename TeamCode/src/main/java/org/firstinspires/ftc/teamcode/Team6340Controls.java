@@ -85,12 +85,12 @@ public abstract class Team6340Controls extends LinearOpMode {
     ColorSensor blueSensorColor;
 
     //Initlize encoder variables
-    protected double COUNTS_PER_MOTOR_REV = 1120;    // Rev Hex Motor 288
-    protected double COUNTS_PER_MOTOR = 280;    // andyMark 40
+    protected double COUNTS_PER_MOTOR_DRIVE = 1120;    // Rev Hex Motor 288
+    protected double COUNTS_PER_MOTOR_LIFT = 1120;    // andyMark 40
     protected double DRIVE_GEAR_REDUCTION = 1;     // This is < 1.0 if geared UP
     protected double WHEEL_DIAMETER_INCHES = 4.0;     // For figuring circumference
-    protected double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * 3.1415);
-   // protected double COUNTS_PER_INCH_LIFT = (COUNTS_PER_MOTOR );
+    protected double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_DRIVE * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * 3.1415);
+    protected double COUNTS_PER_INCH_LIFT = (COUNTS_PER_MOTOR_LIFT) / (.677 * 3.1415);
 
     // These constants define the desired driving/control characteristics
     // The can/should be tweaked to suite the specific robot drive train.
@@ -393,6 +393,8 @@ public abstract class Team6340Controls extends LinearOpMode {
         }
     }
 
+
+
     //Controls lift
     public void lift(double speed,
                              double liftInches,
@@ -401,13 +403,15 @@ public abstract class Team6340Controls extends LinearOpMode {
 
         // Ensure that the opmode is still active
         if (opModeIsActive()) {
-
+//TODO Determine why it must be taken times 2 to get rught output
             // Determine new target position, and pass to motor controller
-            newLiftTarget = liftMotor.getCurrentPosition() + (int)(liftInches * COUNTS_PER_MOTOR);
+            newLiftTarget = liftMotor.getCurrentPosition() + (int)(liftInches*(COUNTS_PER_INCH_LIFT));
             liftMotor.setTargetPosition(newLiftTarget);
 
             // Turn On RUN_TO_POSITION
             liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            liftMotor.setTargetPositionTolerance(100);
+
 
             // reset the timeout time and start motion.
             runtime.reset();
@@ -424,9 +428,9 @@ public abstract class Team6340Controls extends LinearOpMode {
                   (liftMotor.isBusy())) {
 
                 // Display it for the driver.
-               telemetry.addData("Path1",  "Running", newLiftTarget);
-               telemetry.addData("Path2",  "Running",
-                     liftMotor.getCurrentPosition());
+                telemetry.addData("Target", "%7d", newLiftTarget);
+                telemetry.addData("Actual", "%7d", liftMotor.getCurrentPosition());
+
                telemetry.update();
             }
 
@@ -449,7 +453,7 @@ public abstract class Team6340Controls extends LinearOpMode {
 //        if (opModeIsActive()) {
 //
 //            // Determine new target position, and pass to motor controller
-//            newBucketTarget = (int) (bucketAngle * COUNTS_PER_MOTOR / 360);
+//            newBucketTarget = (int) (bucketAngle * COUNTS_PER_MOTOR_LIFT / 360);
 //            bucketMotor.setTargetPosition(newBucketTarget);
 //
 //            // Turn On RUN_TO_POSITION
@@ -494,7 +498,7 @@ public abstract class Team6340Controls extends LinearOpMode {
         if (opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
-            newAngleTarget = armRotationMotor.getCurrentPosition() + (int)(rotationAngle * COUNTS_PER_MOTOR);
+            newAngleTarget = armRotationMotor.getCurrentPosition() + (int)(rotationAngle * COUNTS_PER_MOTOR_LIFT);
             armRotationMotor.setTargetPosition(newAngleTarget);
 
             // Turn On RUN_TO_POSITION

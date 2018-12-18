@@ -5,9 +5,10 @@ package org.firstinspires.ftc.teamcode;
 //Import FTC modules
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 //Define as Autonomous
-//@Disabled
+@Disabled
 @Autonomous(name = "Depot Webcam", group = "Linear Opmode")
 public class DepotWebcam extends Team6340Controls {
 
