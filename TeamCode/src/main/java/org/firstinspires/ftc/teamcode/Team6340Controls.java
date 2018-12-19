@@ -77,7 +77,7 @@ public abstract class Team6340Controls extends LinearOpMode {
 
 
     //Instantiate servos
-    protected Servo trophy;
+    protected Servo marker;
     protected Servo intake;
 
 
@@ -147,7 +147,7 @@ public abstract class Team6340Controls extends LinearOpMode {
 
 
         //Initialize the servos
-       trophy = hardwareMap.get(Servo.class, "trophy");
+       marker = hardwareMap.get(Servo.class, "marker");
        intake = hardwareMap.get(Servo.class, "intake");
 
         //Initialize sensors

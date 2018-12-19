@@ -34,12 +34,12 @@ public class Depot extends Team6340Controls {
         if (POSITION_CENTER.equals(position)) {                             //If the mineral position is Center
             lift(-.5, 17.5, 8);//Land
             gyroDrive(DRIVE_SPEED, 64, 0, 10);    //Move forward 64 inches
-            trophy.setPosition(.4);                                         //drop trophy set servo .2/up
+            marker.setPosition(.4);                                         //drop marker set servo .2/up
             gyroHold(TURN_SPEED, 0, 1);                      //stop for 1 sec
             gyroDrive(DRIVE_SPEED, -10,0, 5 );         //Drive Back from wall
             gyroTurn(TURN_SPEED, -120, 5);                    //turn 120 degrees right
             gyroDrive(DRIVE_SPEED, 67, -120, 10);    //move forward 67 inches
-            trophy.setPosition(.15);                                         //set servo to 0.0/down
+            marker.setPosition(.9);                                         //set servo to 0.0/down
 
         } else if (POSITION_LEFT.equals(position)) {                       //If the mineral position is Left
             lift(-.5, 9, 8);                          //Land
@@ -48,12 +48,12 @@ public class Depot extends Team6340Controls {
             gyroDrive(DRIVE_SPEED, 46, 20, 10);      //knock over mineral
             gyroTurn(TURN_SPEED, -40, 5);                    //turn towards depot
             gyroDrive(DRIVE_SPEED, 16, -40, 10);    //drive into depot
-            trophy.setPosition(.4);                                        //DROP of trophy
+            marker.setPosition(.4);                                        //DROP of marker
             gyroHold(TURN_SPEED, -50, 1);                  //Hold for a second
             gyroDrive(DRIVE_SPEED, -6 , -50, 10);  //Drive away from wall
             gyroTurn(TURN_SPEED, -120, 5);                 //turn towards crater
             gyroDrive(DRIVE_SPEED, 72, -115, 10); //drive towards crater
-            trophy.setPosition(.9);
+            marker.setPosition(.9);
 
 
         } else if (POSITION_RIGHT.equals(position)) {                       //If the mineral position is Right
@@ -63,20 +63,20 @@ public class Depot extends Team6340Controls {
             gyroDrive(DRIVE_SPEED, 48, -20, 10);    //Move forward 53 inches
             gyroTurn(TURN_SPEED, 45, 5);                     //turn left to 45 degrees
             gyroDrive(DRIVE_SPEED, 20, 45, 10);    //Move forward 20 inches
-            trophy.setPosition(.4);                                         //drop trophy set servo .2/up
+            marker.setPosition(.4);                                         //drop marker set servo .2/up
             gyroHold(TURN_SPEED, 50, 1);                      //stop for 1 sec
             gyroDrive(DRIVE_SPEED, -95, 50, 10);    //move backward 95 inches
-            trophy.setPosition(.9);
+            marker.setPosition(.9);
 
         } else {                                                               //default case
             lift(-.5, 9, 8);                        //Land
             gyroDrive(DRIVE_SPEED, 60, 0, 10);    //Move forward 64 inches
-            trophy.setPosition(.4);                                         //drop trophy set servo .2/up
+            marker.setPosition(.4);                                         //drop marker set servo .2/up
             gyroHold(TURN_SPEED, 0, 1);                      //stop for 1 sec
             gyroDrive(DRIVE_SPEED, -10,0, 5 );         //Drive Back from wall
             gyroTurn(TURN_SPEED, -120, 5);                    //turn 120 degrees right
             gyroDrive(DRIVE_SPEED, 67, -120, 10);    //move forward 67 inches
-            trophy.setPosition(.9);
+            marker.setPosition(.9);
 
         }
 

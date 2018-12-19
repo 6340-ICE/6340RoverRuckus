@@ -35,58 +35,56 @@ public class Teleop6340 extends Team6340Controls {
             angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
 
-            // Control the chassis Gamepad1 controls driving Gamepad2 controls liftng and trophy
+            // Control the chassis Gamepad1 controls driving Gamepad2 controls others
             if (gamepad1.right_trigger < .5) {
                 leftMotor.setPower((-gamepad1.left_stick_y + gamepad1.right_stick_x) / 1.5); //closer to 1.0 is faster 2.0 is half speed
                 rightMotor.setPower((-gamepad1.left_stick_y - gamepad1.right_stick_x) / 1.5); //closer to 1.0 is faster 1.5 is 2/3 speed
-                liftMotor.setPower(-gamepad2.right_stick_y);                             //gamepad2 raise and lower lift
+
             }
 
             if (gamepad1.right_trigger > .5) {
                 leftMotor.setPower(-gamepad1.left_stick_y + gamepad1.right_stick_x); //Full Speed
                 rightMotor.setPower(-gamepad1.left_stick_y - gamepad1.right_stick_x); //Full Speed
-                liftMotor.setPower(-gamepad2.right_stick_y);                             //gamepad2 raise and lower lift
             }
 
-            //trophy pad up press y/yellow
+            liftMotor.setPower(-gamepad2.right_stick_y);                             //gamepad2 raise and lower lift
+
+            //marker pad up press y/yellow
             if (gamepad2.y) {
-                trophy.setPosition(.2);            //servo up
+                marker.setPosition(.9);            //servo up/out/dump
+
             }
 
-            //trophy pad down press x/blue
+            //marker pad down press x/blue
             if (gamepad2.x) {
-                trophy.setPosition(0.0);            //servo down
+                marker.setPosition(0.1);            //servo down/back
             }
 
             //Lift and dump minerals that have been collected. Stop intake
             if (gamepad2.right_bumper) {
-                intake.setPosition(.5);
+
+
             }
 
             //Lower lift and start intake
             if (gamepad2.left_bumper) {
-                //bucket(-.5,-70,5);
-                lift(-1, -10, 5);
-                intake.setPosition(.9);
+
             }
 
             if (gamepad2.b){
-                intake.setPosition(.95);   //Out
+
             }
 
             if (gamepad2.a){
-                //intake.setPosition(.5);
-                armRotate(.1, 5, 5);
+
             }
 
-            //bucketMotor.setPower(gamepad2.left_stick_y);
             //Stop everything
-            if (gamepad2.y||gamepad1.y) {
+            if (gamepad2.back||gamepad1.back) {
                 liftMotor.setPower(0);
                 rightMotor.setPower(0);
                 leftMotor.setPower(0);
-                intake.setPosition(.5);
-                //bucketMotor.setPower(0);
+
             }
 
 
