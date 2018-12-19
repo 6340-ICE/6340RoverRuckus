@@ -26,8 +26,10 @@ Crater extends Team6340Controls {
 
         // Insert Autonomous Code Here
         //adding timeout Ex: getMineralPosition(15)
-        String position = getMineralPosition(5); //wait 10 sec if you don't get the mineral position run default case
+        // String position = getMineralPosition(5); //wait 10 sec if you don't get the mineral position run default case
+        String position = getPositionFromLeftTwoMinerals(5);
         telemetry.addData("Position from Depot: ",position);
+        telemetry.update();
 
 
         if (POSITION_CENTER.equals(position)) {                             //If the mineral position is Center

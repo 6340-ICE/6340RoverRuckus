@@ -797,6 +797,70 @@ public abstract class Team6340Controls extends LinearOpMode {
     }
 
 
+    /**
+     * Method to find the Gold Mineral position with timeout option
+     * @param timeout - number of seconds to find the mineral position.
+     *                If TensorFlow is unable to find the mineral position by this number of seconds,
+     *                then this program will return null.
+     * @return String - returns the position of the gold mineral by the given timeout period or null if time runs out
+     *                - Will return Left, Right, Center or null
+     */
+    protected String getPositionFromLeftTwoMinerals(double timeout) {
+        if (opModeIsActive()) {
+            /** Activate Tensor Flow Object Detection. */
+            if (tfod != null) {
+                tfod.activate();
+            }
+
+            //reset the timeout time and start processing
+            runtime.reset();
+
+            //run until the given timeout period
+            while (opModeIsActive() && (runtime.seconds() < timeout)) {
+                if (tfod != null) {
+                    // getUpdatedRecognitions() will return null if no new information is available since
+                    // the last time that call was made.
+                    List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
+                    if (updatedRecognitions != null) {
+                        telemetry.addData("# Object Detected", updatedRecognitions.size());
+                        if (updatedRecognitions.size() == 2) {
+                            int goldMineralX = -1;
+                            int silverMineral1X = -1;
+
+                            for (Recognition recognition : updatedRecognitions) {
+                                if (recognition.getLabel().equals(LABEL_GOLD_MINERAL)) {
+                                    goldMineralX = (int) recognition.getLeft();
+                                } else if (silverMineral1X == -1) {
+                                    silverMineral1X = (int) recognition.getLeft();
+                                }
+                            }
+
+                            // if both are silver and gold is not found, then its x position would be -1.
+                            if(goldMineralX == -1) {
+                                telemetry.addData("Gold Mineral Position", "Right");
+                                return POSITION_RIGHT;
+                            }
+
+                            // if there is one gold and one silver, use the x positions to figure out
+                            // which mineral is on the left.
+                            // if gold has lower x value, then it's on the left.
+                            if(goldMineralX < silverMineral1X) {
+                                telemetry.addData("Gold Mineral Position", "Left");
+                                return POSITION_LEFT;
+                            } else {
+                                telemetry.addData("Gold Mineral Position", "Center");
+                                return POSITION_CENTER;
+                            }
+
+                        }
+                        telemetry.update();
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
 
 
 }
