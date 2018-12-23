@@ -3,9 +3,10 @@ package org.firstinspires.ftc.teamcode;
 //Import FTC modules
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 //Define as Autonomous
-//@Disabled
+@Disabled
 @Autonomous(name = "Depot", group = "Linear Opmode")
 public class Depot extends Team6340Controls {
 
@@ -26,8 +27,8 @@ public class Depot extends Team6340Controls {
 
         // Insert Autonomous Code Here
         // Try adding timeout Ex: getMineralPosition(15)
-        //String position = getMineralPosition(5); //wait 10 sec if you don't get the mineral position run default case
-        String position = getPositionFromLeftTwoMinerals(5);
+        String position = getMineralPosition(5); //wait 10 sec if you don't get the mineral position run default case
+        //String position = getPositionFromLeftTwoMinerals(5);
         telemetry.addData("Position from Depot: ",position);
         telemetry.update();
 
