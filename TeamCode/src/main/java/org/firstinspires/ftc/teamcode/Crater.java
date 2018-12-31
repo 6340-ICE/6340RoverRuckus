@@ -41,12 +41,12 @@ Crater extends Team6340Controls {
 //            gyroDrive(DRIVE_SPEED, 40, 85, 10);    //move forward 40 inches
 //            gyroTurn(TURN_SPEED, 115, 10);                  //turn to face depot
 //            gyroDrive(DRIVE_SPEED, 60, 115, 10);    //drive to depot
-//            marker.setPosition(.4);                                         //drop marker
+//            marker.setPosition(.2);                                         //drop marker
 //            gyroHold(TURN_SPEED, 125, 1);                   //wait a sec.
 //            lift(.5, -9, 8);//Land
 //            gyroTurn(TURN_SPEED, -115, 5);
 //            gyroDrive(DRIVE_SPEED, 95, -115,10);    //drive backwards to crater
-//            marker.setPosition(.9);
+//            marker.setPosition(0.55);
 //
 //        } else if (POSITION_LEFT.equals(position)) {                       //If the mineral position is Left
 //            lift(-.5, 9, 6);//Land
@@ -58,12 +58,12 @@ Crater extends Team6340Controls {
 //            gyroDrive(DRIVE_SPEED, 40, 90, 10);    //move forward 40 inches
 //            gyroTurn(TURN_SPEED, 120, 10);                  //turn to face depot
 //            gyroDrive(DRIVE_SPEED, 50, 125, 10);    //drive to depot
-//            marker.setPosition(.4);                                         //drop marker
+//           marker.setPosition(.2);                                         //drop marker
 //            gyroHold(TURN_SPEED, 125, 1);                   //wait a sec.
 //            lift(.5, -9, 8);//Land
 //            gyroTurn(TURN_SPEED, -115, 5);
 //            gyroDrive(DRIVE_SPEED, 95, -115,10);    //drive backwards to crater
-//            marker.setPosition(0.9);
+//           marker.setPosition(0.55);
 //
 //        } else if (POSITION_RIGHT.equals(position)) {                       //If the mineral position is Right
 //            lift(-.5, 9, 8);//Land
@@ -75,12 +75,12 @@ Crater extends Team6340Controls {
 //            gyroDrive(DRIVE_SPEED, 50, 80, 10);    //move forward 40 inches
 //            gyroTurn(TURN_SPEED, 120, 10);                  //turn to face depot
 //            gyroDrive(DRIVE_SPEED, 60, 125, 10);    //drive to depot
-//            marker.setPosition(.4);                                         //drop marker
+//            marker.setPosition(.2);                                         //drop marker
 //            gyroHold(TURN_SPEED, 125, 1);                   //wait a sec.
 //            lift(.5, -9, 8);//Land
 //            gyroTurn(TURN_SPEED, -115, 5);
 //            gyroDrive(DRIVE_SPEED, 100, -115,10);    //drive backwards to crater
-//            marker.setPosition(.9);
+//           marker.setPosition(0.55);
 
 //        } else {                                                               //default case
             lift(-.5, 9, 8);//Land
@@ -90,11 +90,11 @@ Crater extends Team6340Controls {
             gyroDrive(DRIVE_SPEED, 40, 90, 10);    //move forward 40 inches
             gyroTurn(TURN_SPEED, 120, 10);                  //turn to face depot
             gyroDrive(DRIVE_SPEED, 70, 120, 10);    //drive to depot
-            marker.setPosition(.4);                                         //drop marker
+            marker.setPosition(.2);                                         //drop marker
             gyroHold(TURN_SPEED, 125, 1);                   //wait a sec.
             lift(.5, -9, 8);//Land
            // gyroTurn(TURN_SPEED, -120, 5);
             gyroDrive(DRIVE_SPEED, -100, -120,10);    //drive backwards to crater
-            marker.setPosition(.9);
-        }
+        marker.setPosition(0.55);
+    }
     }
