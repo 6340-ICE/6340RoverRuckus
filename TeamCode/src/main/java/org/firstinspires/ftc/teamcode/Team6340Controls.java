@@ -72,7 +72,7 @@ public abstract class Team6340Controls extends LinearOpMode {
     protected DcMotorEx leftMotor;
     protected DcMotorEx rightMotor;
     protected DcMotorEx liftMotor;
-    //protected DcMotorEx bucketMotor;
+   // protected DcMotorEx bucketMotor;
     protected DcMotorEx armRotationMotor;
 
 
@@ -119,7 +119,7 @@ public abstract class Team6340Controls extends LinearOpMode {
         leftMotor = (DcMotorEx) hardwareMap.get(DcMotor.class, "leftMotor");
         rightMotor = (DcMotorEx) hardwareMap.get(DcMotor.class, "rightMotor");
         liftMotor = (DcMotorEx) hardwareMap.get(DcMotor.class, "liftMotor");
-      //  bucketMotor = (DcMotorEx) hardwareMap.get(DcMotor.class, "bucketMotor");
+        //bucketMotor = (DcMotorEx) hardwareMap.get(DcMotor.class, "bucketMotor");
         armRotationMotor = (DcMotorEx) hardwareMap.get(DcMotor.class, "armRotationMotor");
 
         //Reset the encoders on the chassis to 0
@@ -396,9 +396,10 @@ public abstract class Team6340Controls extends LinearOpMode {
 
 
     //Controls lift
+
     public void lift(double speed,
-                             double liftInches,
-                             double timeout) {
+                     double liftInches,
+                     double timeout) {
         int newLiftTarget;
 
         // Ensure that the opmode is still active
@@ -424,14 +425,14 @@ public abstract class Team6340Controls extends LinearOpMode {
             // However, if you require that BOTH motors have finished their moves before the robot continues
             // onto the next step, use (isBusy() || isBusy()) in the loop test.
             while (opModeIsActive() &&
-                 (runtime.seconds() < timeout) &&
-                  (liftMotor.isBusy())) {
+                    (runtime.seconds() < timeout) &&
+                    (liftMotor.isBusy())) {
 
                 // Display it for the driver.
                 telemetry.addData("Target", "%7d", newLiftTarget);
                 telemetry.addData("Actual", "%7d", liftMotor.getCurrentPosition());
 
-               telemetry.update();
+                telemetry.update();
             }
 
             // Stop all motion;
@@ -445,7 +446,7 @@ public abstract class Team6340Controls extends LinearOpMode {
     }
 
 //    public void bucket(double speed,
-//                     double bucketAngle,
+//                     double bucketInches,
 //                     double timeout) {
 //        int newBucketTarget;
 //
@@ -453,7 +454,7 @@ public abstract class Team6340Controls extends LinearOpMode {
 //        if (opModeIsActive()) {
 //
 //            // Determine new target position, and pass to motor controller
-//            newBucketTarget = (int) (bucketAngle * COUNTS_PER_MOTOR_LIFT / 360);
+//            newBucketTarget = (int) (bucketInches * COUNTS_PER_MOTOR_LIFT / 360);
 //            bucketMotor.setTargetPosition(newBucketTarget);
 //
 //            // Turn On RUN_TO_POSITION

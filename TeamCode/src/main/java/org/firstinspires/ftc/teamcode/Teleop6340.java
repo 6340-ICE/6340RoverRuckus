@@ -47,7 +47,9 @@ public class Teleop6340 extends Team6340Controls {
                 rightMotor.setPower(-gamepad1.left_stick_y - gamepad1.right_stick_x); //Full Speed
             }
 
-            liftMotor.setPower(-gamepad2.right_stick_y);                             //gamepad2 raise and lower lift
+            liftMotor.setPower(-gamepad2.left_stick_y);                             //gamepad2 raise and lower lift
+            armRotationMotor.setPower((gamepad2.right_stick_y)/4);                  //Controls vertical motion of arm
+
 
             //marker pad up press y/yellow
             if (gamepad2.y) {
@@ -60,47 +62,45 @@ public class Teleop6340 extends Team6340Controls {
                 marker.setPosition(0.1);            //servo down/back
             }
 
-            //Lift and dump minerals that have been collected. Stop intake
-            if (gamepad2.right_bumper) {
 
 
+
+
+                if (gamepad2.left_bumper) {
+
+
+                }
+
+                if (gamepad2.b) {
+
+                }
+
+                if (gamepad2.a) {
+
+                }
+
+                //Stop everything
+                if (gamepad2.back || gamepad1.back) {
+                    liftMotor.setPower(0);
+                    rightMotor.setPower(0);
+                    leftMotor.setPower(0);
+                    armRotationMotor.setPower(0);
+
+                }
+
+
+                // Update the telemetry
+                // Inform the user of important debug information
+                telemetry.addData("Status", "Run Time: " + runtime.toString());
+                // Add telemetry data related to motors
+                telemetry.addData("Left motor power", leftMotor.getPower());
+                telemetry.addData("Right motor power", rightMotor.getPower());
+                // Update telemetry
+                telemetry.update();
+                // end of main teleop loop
+
+                telemetry.addData("Status", "Done");
+                telemetry.update();
             }
-
-            //Lower lift and start intake
-            if (gamepad2.left_bumper) {
-
-            }
-
-            if (gamepad2.b){
-
-            }
-
-            if (gamepad2.a){
-
-            }
-
-            //Stop everything
-            if (gamepad2.back||gamepad1.back) {
-                liftMotor.setPower(0);
-                rightMotor.setPower(0);
-                leftMotor.setPower(0);
-
-            }
-
-
-
-            // Update the telemetry
-            // Inform the user of important debug information
-            telemetry.addData("Status", "Run Time: " + runtime.toString());
-            // Add telemetry data related to motors
-            telemetry.addData("Left motor power", leftMotor.getPower());
-            telemetry.addData("Right motor power", rightMotor.getPower());
-            // Update telemetry
-            telemetry.update();
-            // end of main teleop loop
-
-            telemetry.addData("Status", "Done");
-            telemetry.update();
-        }
-    }// end of opMode()
-}// end of class
+        }// end of opMode()
+    }// end of class
