@@ -53,12 +53,12 @@ public class Teleop6340 extends Team6340Controls {
             //armRotationMotor.setPower(-gamepad2.right_stick_y);                             //gamepad2 controls upward motain of arm
 
 
-            if (gamepad2.right_trigger > .5) {
+            //if (gamepad2.right_trigger > .5) {
                 liftMotor.setPower(-gamepad2.left_stick_y);                             //gamepad2 raise and lower lift
 
-            } else {
+            //} else {
                 //extenedMotor.setPower(-gamepad2.left_stick_y);
-            }
+            //}
 
             //marker pad up press y/yellow
             if (gamepad2.y) {
@@ -77,11 +77,11 @@ public class Teleop6340 extends Team6340Controls {
 
 
 
-                if (gamepad2.b) {
+                //if (gamepad2.b) {
                 //intakeMotor.setPower(.5);
                 }
 
-                if (gamepad2.a) {
+                //if (gamepad2.a) {
                 //intakeMotor.setPower(-.5);
                 }
 
