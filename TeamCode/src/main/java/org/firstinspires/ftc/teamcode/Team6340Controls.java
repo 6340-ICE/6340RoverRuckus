@@ -75,7 +75,7 @@ public abstract class Team6340Controls extends LinearOpMode {
    // protected DcMotorEx bucketMotor;
     protected DcMotorEx armRotationMotor;
     protected DcMotorEx extenedMotor;
-
+    protected DcMotorEx intakeMotor;
 
 
     //Instantiate servos
@@ -123,7 +123,7 @@ public abstract class Team6340Controls extends LinearOpMode {
         //bucketMotor = (DcMotorEx) hardwareMap.get(DcMotor.class, "bucketMotor");
         armRotationMotor = (DcMotorEx) hardwareMap.get(DcMotor.class, "armRotationMotor");
         extenedMotor = (DcMotorEx) hardwareMap.get(DcMotor.class, "extenedMotor");
-
+        intakeMotor = (DcMotorEx) hardwareMap.get(DcMotor.class, "intakeMotor");
         //Reset the encoders on the chassis to 0
         leftMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         rightMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
@@ -150,7 +150,7 @@ public abstract class Team6340Controls extends LinearOpMode {
         //bucketMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         armRotationMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         extenedMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
+        intakeMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         //Initialize the servos
        marker = hardwareMap.get(Servo.class, "marker");
@@ -496,9 +496,54 @@ public abstract class Team6340Controls extends LinearOpMode {
 //            //  sleep(250);   // optional pause after each move
 //        }
         //armRotation
-    public void extenedArm(double speed,
-                     double extenedInches,
+    public void IntakeMotor(double speed,
+                     double intakeInches,
                      double timeout) {
+        int newAngleTarget;
+
+        // Ensure that the opmode is still active
+        if (opModeIsActive()) {
+
+            // Determine new target position, and pass to motor controller
+            newAngleTarget = intakeMotor.getCurrentPosition() + (int)(intakeInches * COUNTS_PER_MOTOR_LIFT);
+            intakeMotor.setTargetPosition(newAngleTarget);
+
+            // Turn On RUN_TO_POSITION
+            intakeMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            // reset the timeout time and start motion.
+            runtime.reset();
+            intakeMotor.setPower(Math.abs(speed));
+
+            // keep looping while we are still active, and there is time left, and both motors are running.
+            // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
+            // its target position, the motion will stop.  This is "safer" in the event that the robot will
+            // always end the motion as soon as possible.
+            // However, if you require that BOTH motors have finished their moves before the robot continues
+            // onto the next step, use (isBusy() || isBusy()) in the loop test.
+            while (opModeIsActive() &&
+                    (runtime.seconds() < timeout) &&
+                    (intakeMotor.isBusy())) {
+
+                // Display it for the driver.
+                telemetry.addData("Arm1",  "Running", newAngleTarget);
+                telemetry.addData("Arm2",  "Running",
+                        intakeMotor.getCurrentPosition());
+                telemetry.update();
+            }
+
+            // Stop all motion;
+            intakeMotor.setPower(0);
+
+            // Turn off RUN_TO_POSITION
+            intakeMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+            //  sleep(250);   // optional pause after each move
+        }
+    }
+    public void extenedArm(double speed,
+                           double extenedInches,
+                           double timeout) {
         int newAngleTarget;
 
         // Ensure that the opmode is still active
