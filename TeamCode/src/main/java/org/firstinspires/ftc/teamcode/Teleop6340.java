@@ -79,11 +79,11 @@ public class Teleop6340 extends Team6340Controls {
 
                 //if (gamepad2.b) {
                 //intakeMotor.setPower(.5);
-                }
+               // }
 
                 //if (gamepad2.a) {
                 //intakeMotor.setPower(-.5);
-                }
+                //}
 
 
                 //Stop everything
