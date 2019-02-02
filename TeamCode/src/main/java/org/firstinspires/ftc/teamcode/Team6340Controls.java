@@ -586,8 +586,15 @@ public abstract class Team6340Controls extends LinearOpMode {
             //  sleep(250);   // optional pause after each move
         }
     }
+    public void armRotate2() throws InterruptedException {
 
+        runtime.reset();
+        while (opModeIsActive() && (runtime.seconds() < 1.5)) {
+            armRotationMotor.setPower(-.2);
+        }
+        armRotationMotor.setPower(0);
 
+    }
 
     public void armRotate(double speed,
                           double rotationAngle,
