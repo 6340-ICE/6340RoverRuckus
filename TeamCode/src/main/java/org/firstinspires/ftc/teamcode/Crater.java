@@ -89,7 +89,7 @@ Crater extends Team6340Controls {
             marker.setPosition(.2);                                         //drop marker
             gyroHold(TURN_SPEED, 125, 1);                   //wait a sec.
             lift(.5, -9, 8);//Land
-            // gyroTurn(TURN_SPEED, -120, 5);
+            gyroTurn(TURN_SPEED, -120, 5);
             gyroDrive(DRIVE_SPEED, -100, -120, 10);    //drive backwards to crater
             marker.setPosition(0.55);
         }

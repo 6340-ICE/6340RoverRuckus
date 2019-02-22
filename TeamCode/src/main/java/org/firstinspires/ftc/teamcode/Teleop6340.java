@@ -33,6 +33,7 @@ public class Teleop6340 extends Team6340Controls {
         while (opModeIsActive()) {
             // Retrieve sensor data from the REV hub's built-in accelerometer
             angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+            marker.setPosition(0);
 
 
             // Control the chassis Gamepad1 controls driving Gamepad2 controls others
@@ -47,31 +48,31 @@ public class Teleop6340 extends Team6340Controls {
                 rightMotor.setPower(-gamepad1.left_stick_y - gamepad1.right_stick_x); //Full Speed
             }
 
-            liftMotor.setPower(gamepad2.right_stick_x);
+            liftMotor.setPower(gamepad2.right_stick_y);
 
-            armRotationMotor.setPower((-gamepad2.right_stick_y)/8);
-            extendMotor.setPower(-gamepad2.left_stick_y);
+//            armRotationMotor.setPower((-gamepad2.right_stick_y)/8);
+//            extendMotor.setPower(-gamepad2.left_stick_y);
 
             //marker pad up press y/yellow
-            if (gamepad2.y) {
-                intakeMotor.setPower(0);      //servo up/out/dump
+            //if (gamepad2.y) {
+              //  intakeMotor.setPower(0);      //servo up/out/dump
 
-            }
-
-
+            //}
 
 
 
 
 
 
-                if (gamepad2.x) {
-                intakeMotor.setPower(.5);
-                }
 
-                if (gamepad2.a) {
-                intakeMotor.setPower(-.5);
-                }
+
+//                if (gamepad2.x) {
+//                intakeMotor.setPower(.5);
+//                }
+//
+//                if (gamepad2.a) {
+//                intakeMotor.setPower(-.5);
+//                }
 
 
                 //Stop everything
@@ -79,9 +80,9 @@ public class Teleop6340 extends Team6340Controls {
                     liftMotor.setPower(0);
                     rightMotor.setPower(0);
                     leftMotor.setPower(0);
-                    armRotationMotor.setPower(0);
-                    extendMotor.setPower(0);
-                    intakeMotor.setPower(0);
+//                    armRotationMotor.setPower(0);
+//                    extendMotor.setPower(0);
+//                    intakeMotor.setPower(0);
 
                 }
 

@@ -73,9 +73,9 @@ public abstract class Team6340Controls extends LinearOpMode {
     protected DcMotorEx rightMotor;
     protected DcMotorEx liftMotor;
    // protected DcMotorEx bucketMotor;
-    protected DcMotorEx armRotationMotor;
-    protected DcMotorEx extendMotor;
-    protected DcMotorEx intakeMotor;
+//    protected DcMotorEx armRotationMotor;
+////    protected DcMotorEx extendMotor;
+////    protected DcMotorEx intakeMotor;
 
 
     //Instantiate servos
@@ -121,29 +121,29 @@ public abstract class Team6340Controls extends LinearOpMode {
         rightMotor = (DcMotorEx) hardwareMap.get(DcMotor.class, "rightMotor");
         liftMotor = (DcMotorEx) hardwareMap.get(DcMotor.class, "liftMotor");
         //bucketMotor = (DcMotorEx) hardwareMap.get(DcMotor.class, "bucketMotor");
-        armRotationMotor = (DcMotorEx) hardwareMap.get(DcMotor.class, "armRotationMotor");
-        extendMotor = (DcMotorEx) hardwareMap.get(DcMotor.class, "extendMotor");
-        intakeMotor = (DcMotorEx) hardwareMap.get(DcMotor.class, "intakeMotor");
+//        armRotationMotor = (DcMotorEx) hardwareMap.get(DcMotor.class, "armRotationMotor");
+//        extendMotor = (DcMotorEx) hardwareMap.get(DcMotor.class, "extendMotor");
+//        intakeMotor = (DcMotorEx) hardwareMap.get(DcMotor.class, "intakeMotor");
         //Reset the encoders on the chassis to 0
         leftMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         rightMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         liftMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        //bucketMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        armRotationMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        extendMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+//        //bucketMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+//        armRotationMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+//        extendMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 
         //Set the motor modes
         rightMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         leftMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         liftMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        //bucketMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        armRotationMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        extendMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+//        //bucketMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+//        armRotationMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+//        extendMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
 
         //Reverse the right motors so all motors move forward when set to a positive speed.
         leftMotor.setDirection(DcMotorEx.Direction.REVERSE);
         liftMotor.setDirection(DcMotorEx.Direction.REVERSE);
-        armRotationMotor.setDirection(DcMotorEx.Direction.REVERSE);
+//        armRotationMotor.setDirection(DcMotorEx.Direction.REVERSE);
         rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -541,106 +541,106 @@ public abstract class Team6340Controls extends LinearOpMode {
 //            //  sleep(250);   // optional pause after each move
 //        }
 //    }
-    public void extenedArm(double speed,
-                           double extenedInches,
-                           double timeout) {
-        int newAngleTarget;
+//    public void extenedArm(double speed,
+//                           double extenedInches,
+//                           double timeout) {
+//        int newAngleTarget;
+//
+//        // Ensure that the opmode is still active
+//        if (opModeIsActive()) {
+//
+//            // Determine new target position, and pass to motor controller
+//            newAngleTarget = extendMotor.getCurrentPosition() + (int)(extenedInches * COUNTS_PER_MOTOR_LIFT);
+//            extendMotor.setTargetPosition(newAngleTarget);
+//
+//            // Turn On RUN_TO_POSITION
+//            extendMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//
+//            // reset the timeout time and start motion.
+//            runtime.reset();
+//            extendMotor.setPower(Math.abs(speed));
+//
+//            // keep looping while we are still active, and there is time left, and both motors are running.
+//            // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
+//            // its target position, the motion will stop.  This is "safer" in the event that the robot will
+//            // always end the motion as soon as possible.
+//            // However, if you require that BOTH motors have finished their moves before the robot continues
+//            // onto the next step, use (isBusy() || isBusy()) in the loop test.
+//            while (opModeIsActive() &&
+//                    (runtime.seconds() < timeout) &&
+//                    (extendMotor.isBusy())) {
+//
+//                // Display it for the driver.
+//                telemetry.addData("Arm1",  "Running", newAngleTarget);
+//                telemetry.addData("Arm2",  "Running",
+//                        extendMotor.getCurrentPosition());
+//                telemetry.update();
+//            }
+//
+//            // Stop all motion;
+//            extendMotor.setPower(0);
+//
+//            // Turn off RUN_TO_POSITION
+//            extendMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//
+//            //  sleep(250);   // optional pause after each move
+//        }
+//    }
+//    public void armRotate2() throws InterruptedException {
+//
+//        runtime.reset();
+//        while (opModeIsActive() && (runtime.seconds() < 1.5)) {
+//            armRotationMotor.setPower(-.2);
+//        }
+//        armRotationMotor.setPower(0);
+//
+//    }
 
-        // Ensure that the opmode is still active
-        if (opModeIsActive()) {
-
-            // Determine new target position, and pass to motor controller
-            newAngleTarget = extendMotor.getCurrentPosition() + (int)(extenedInches * COUNTS_PER_MOTOR_LIFT);
-            extendMotor.setTargetPosition(newAngleTarget);
-
-            // Turn On RUN_TO_POSITION
-            extendMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-            // reset the timeout time and start motion.
-            runtime.reset();
-            extendMotor.setPower(Math.abs(speed));
-
-            // keep looping while we are still active, and there is time left, and both motors are running.
-            // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
-            // its target position, the motion will stop.  This is "safer" in the event that the robot will
-            // always end the motion as soon as possible.
-            // However, if you require that BOTH motors have finished their moves before the robot continues
-            // onto the next step, use (isBusy() || isBusy()) in the loop test.
-            while (opModeIsActive() &&
-                    (runtime.seconds() < timeout) &&
-                    (extendMotor.isBusy())) {
-
-                // Display it for the driver.
-                telemetry.addData("Arm1",  "Running", newAngleTarget);
-                telemetry.addData("Arm2",  "Running",
-                        extendMotor.getCurrentPosition());
-                telemetry.update();
-            }
-
-            // Stop all motion;
-            extendMotor.setPower(0);
-
-            // Turn off RUN_TO_POSITION
-            extendMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-            //  sleep(250);   // optional pause after each move
-        }
-    }
-    public void armRotate2() throws InterruptedException {
-
-        runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 1.5)) {
-            armRotationMotor.setPower(-.2);
-        }
-        armRotationMotor.setPower(0);
-
-    }
-
-    public void armRotate(double speed,
-                          double rotationAngle,
-                          double timeout) {
-        int newAngleTarget;
-
-        // Ensure that the opmode is still active
-        if (opModeIsActive()) {
-
-            // Determine new target position, and pass to motor controller
-            newAngleTarget = armRotationMotor.getCurrentPosition() + (int)(rotationAngle * COUNTS_PER_MOTOR_LIFT);
-            armRotationMotor.setTargetPosition(newAngleTarget);
-
-            // Turn On RUN_TO_POSITION
-            armRotationMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-            // reset the timeout time and start motion.
-            runtime.reset();
-            armRotationMotor.setPower(Math.abs(speed));
-
-            // keep looping while we are still active, and there is time left, and both motors are running.
-            // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
-            // its target position, the motion will stop.  This is "safer" in the event that the robot will
-            // always end the motion as soon as possible.
-            // However, if you require that BOTH motors have finished their moves before the robot continues
-            // onto the next step, use (isBusy() || isBusy()) in the loop test.
-            while (opModeIsActive() &&
-                    (runtime.seconds() < timeout) &&
-                    (armRotationMotor.isBusy())) {
-
-                // Display it for the driver.
-                telemetry.addData("Arm1",  "Running", newAngleTarget);
-                telemetry.addData("Arm2",  "Running",
-                        armRotationMotor.getCurrentPosition());
-                telemetry.update();
-            }
-
-            // Stop all motion;
-            armRotationMotor.setPower(0);
-
-            // Turn off RUN_TO_POSITION
-            armRotationMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-            //  sleep(250);   // optional pause after each move
-        }
-    }
+//    public void armRotate(double speed,
+//                          double rotationAngle,
+//                          double timeout) {
+//        int newAngleTarget;
+//
+//        // Ensure that the opmode is still active
+//        if (opModeIsActive()) {
+//
+//            // Determine new target position, and pass to motor controller
+//            newAngleTarget = armRotationMotor.getCurrentPosition() + (int)(rotationAngle * COUNTS_PER_MOTOR_LIFT);
+//            armRotationMotor.setTargetPosition(newAngleTarget);
+//
+//            // Turn On RUN_TO_POSITION
+//            armRotationMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//
+//            // reset the timeout time and start motion.
+//            runtime.reset();
+//            armRotationMotor.setPower(Math.abs(speed));
+//
+//            // keep looping while we are still active, and there is time left, and both motors are running.
+//            // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
+//            // its target position, the motion will stop.  This is "safer" in the event that the robot will
+//            // always end the motion as soon as possible.
+//            // However, if you require that BOTH motors have finished their moves before the robot continues
+//            // onto the next step, use (isBusy() || isBusy()) in the loop test.
+//            while (opModeIsActive() &&
+//                    (runtime.seconds() < timeout) &&
+//                    (armRotationMotor.isBusy())) {
+//
+//                // Display it for the driver.
+//                telemetry.addData("Arm1",  "Running", newAngleTarget);
+//                telemetry.addData("Arm2",  "Running",
+//                        armRotationMotor.getCurrentPosition());
+//                telemetry.update();
+//            }
+//
+//            // Stop all motion;
+//            armRotationMotor.setPower(0);
+//
+//            // Turn off RUN_TO_POSITION
+//            armRotationMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//
+//            //  sleep(250);   // optional pause after each move
+//        }
+//    }
 
 
     /**
