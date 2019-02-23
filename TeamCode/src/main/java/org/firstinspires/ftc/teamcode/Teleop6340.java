@@ -57,7 +57,7 @@ public class Teleop6340 extends Team6340Controls {
             //if (gamepad2.y) {
               //  intakeMotor.setPower(0);      //servo up/out/dump
 
-            //}
+
 
 
 
